@@ -9,16 +9,16 @@ const formsElements = {
     mobileInput: '#userNumber',
     dateOfBirthInput: '#dateOfBirthInput',
     subjectsInput: '#subjectsInput',
-    hobbiesCheckbox: '#hobbies-checkbox-1',
+    hobbiesCheckboxSports: '#hobbies-checkbox-1',
+    hobbiesCheckboxReading: '#hobbies-checkbox-2',
+    hobbiesCheckboxMusic: '#hobbies-checkbox-3',
     uploadPictureBtn: '#uploadPicture',
     currentAddressInput: '#currentAddress',
     stateSelect: '#react-select-3-input',
     citySelect: '#react-select-4-input',
     submitBtn: '#submit',
-
-
-
-
+    modalThanksSubmitTitle: '#example-modal-sizes-title-lg',
+    modalThanksCloseBtn: '#closeLargeModal',
 }
 
 export default formsElements;
