@@ -1,4 +1,5 @@
 import FormsPage from '../../support/pages/forms/formsPage'
+import PracticeFormPage from '../../support/pages/forms/practiceForm/practiceFormPage'
 
 // Prevents Cypress from failing the test if external scripts/website ads return an error.
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -18,22 +19,22 @@ describe('Forms Pages Tests', () => {
 
             it('should visit the practice form page', () => {
                 FormsPage.visitForm();
-                FormsPage.visitPracticeForm();
+                PracticeFormPage.visitPracticeForm();
             })
         })
 
         context('Interactive scenarios with forms', () => {
             it('should fill the practice form with faker data', () => {
                 FormsPage.visitForm();
-                FormsPage.visitPracticeForm();
-                FormsPage.fillPracticeForm();
+                PracticeFormPage.visitPracticeForm();
+                PracticeFormPage.fillPracticeForm();
             })
 
             it('should validate the practice form if is filled correctly', () => {
                 FormsPage.visitForm();
-                FormsPage.visitPracticeForm();
-                FormsPage.fillPracticeForm();
-                FormsPage.validatePracticeForm();
+                PracticeFormPage.visitPracticeForm();
+                PracticeFormPage.fillPracticeForm();
+                PracticeFormPage.validatePracticeForm();
             })
         })
     })
