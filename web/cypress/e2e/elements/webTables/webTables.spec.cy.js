@@ -13,4 +13,15 @@ describe('WebTables Tests', () => {
             WebTablesPage.validateWebTablesPage();
         });
     });
+
+    context.only('Web Tables CRUD operations', () => {
+        it('should create a new record', () => {
+            ElementsPage.visitElementsPage();
+            WebTablesPage.accessWebTablesPage();
+            WebTablesPage.creatingNewRecord();
+            WebTablesPage.validateUserCreatedOnWebTables();
+        });
+    });
+
+
 });
