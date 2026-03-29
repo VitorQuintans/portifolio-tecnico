@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker'
 import Functions from "../../../utils/functions";
 
 class FormsPage {
-    // 1. Variable to store the generated data between methods
+    // Variable to store the generated data between methods
     dataUsedOnPracticeForm = {}
 
     visitForm() {
@@ -20,7 +20,7 @@ class FormsPage {
     }
 
     fillPracticeForm() {
-        // 2. Mapping for state and city
+        // 1. Mapping for state and city
         const locationMap = {
             'NCR': ['Delhi', 'Gurgaon', 'Noida'],
             'Uttar Pradesh': ['Agra', 'Lucknow', 'Merrut'],
@@ -29,7 +29,7 @@ class FormsPage {
         };
         const randomState = faker.helpers.arrayElement(Object.keys(locationMap))
 
-        // 3. Generating and storing random data directly into the class instance (this.dataUsedOnPracticeForm)
+        // 2. Generating and storing random data directly into the class instance (this.dataUsedOnPracticeForm)
         this.dataUsedOnPracticeForm = {
             firstName: faker.person.firstName(),
             lastName: faker.person.lastName(),
@@ -39,17 +39,18 @@ class FormsPage {
             fileExample: 'cypress/utils/files/example.txt',
             subjects: faker.helpers.arrayElement(['Maths', 'Physics', 'Chemistry', 'Computer Science', 'Commerce', 'Accounting', 'Economics', 'Arts', 'Social Studies', 'History', 'Civics', 'English', 'Hindi', 'Biology']),
             hobbies: faker.helpers.arrayElement([formsElements.hobbiesCheckboxSports, formsElements.hobbiesCheckboxReading, formsElements.hobbiesCheckboxMusic]),
+            gender: faker.helpers.arrayElement([formsElements.genderMaleRadioBtn, formsElements.genderFemaleRadioBtn, formsElements.genderOtherRadioBtn]),
             stateSelect: randomState,
             citySelect: faker.helpers.arrayElement(locationMap[randomState])
         }
-        // Email necessita dos dados do nome que acabaram de ser criados
+        // Email should be created using the first and last name generated
         this.dataUsedOnPracticeForm.email = faker.internet.email({ firstName: this.dataUsedOnPracticeForm.firstName, lastName: this.dataUsedOnPracticeForm.lastName })
 
-        // 4. Passing these variables to the ".type()" commands
+        // 3. Passing these variables to the ".type()" commands
         cy.get(formsElements.firstNameInput, { timeout: 3000 }).should('be.visible').type(this.dataUsedOnPracticeForm.firstName)
         cy.get(formsElements.lastNameInput, { timeout: 3000 }).should('be.visible').type(this.dataUsedOnPracticeForm.lastName)
         cy.get(formsElements.emailInput, { timeout: 3000 }).should('be.visible').type(this.dataUsedOnPracticeForm.email)
-        cy.get(formsElements.genderRadioBtn, { timeout: 3000 }).check({ force: true })
+        cy.get(this.dataUsedOnPracticeForm.gender, { timeout: 3000 }).check({ force: true })
         cy.get(formsElements.mobileInput, { timeout: 3000 }).should('be.visible').type(this.dataUsedOnPracticeForm.mobile)
         cy.get(formsElements.dateOfBirthInput, { timeout: 3000 }).should('be.visible').type('{selectall}' + this.dataUsedOnPracticeForm.dateOfBirth + '{enter}')
         cy.get(formsElements.subjectsInput, { timeout: 3000 }).should('be.visible').type(this.dataUsedOnPracticeForm.subjects + '{enter}')
