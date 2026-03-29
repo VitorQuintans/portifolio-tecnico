@@ -10,9 +10,9 @@ describe('Elements Page Tests', () => {
         cy.visit('/');
     })
 
-    context('Essential scenarios', () => {
+    context('Essential scenarios and Acceptance criteria', () => {
         it('should visit the elements page', () => {
-            ElementsPage.visitElementsPage();
+            ElementsPage.accessElementsPage();
             ElementsPage.validateElementsPage();
         })
     })
