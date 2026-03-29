@@ -15,13 +15,23 @@ describe('Alerts Frame Windows Pages Tests', () => {
             it('should visit the alerts frame windows page', () => {
                 AlertsFrameWindowsPage.visitAlertsFramesWindow();
             })
-            it.only('should select "Browser Windows" option', () => {
+            it('should select "Browser Windows" option', () => {
                 AlertsFrameWindowsPage.visitAlertsFramesWindow();
                 AlertsFrameWindowsPage.selectBrowserWindows();
             })
-        })
 
-        context('Interactive scenarios with forms', () => {
+
+        })
+        context('Clicking on "New Windows" button', () => {
+            it('should open a new window and display the text "This is a sample page" and close it', () => {
+                AlertsFrameWindowsPage.visitAlertsFramesWindow();
+                AlertsFrameWindowsPage.selectBrowserWindows();
+                AlertsFrameWindowsPage.checkBrowserWindowsPage();
+                AlertsFrameWindowsPage.clickNewWindowBtn();
+                AlertsFrameWindowsPage.validateNewWindow();
+                AlertsFrameWindowsPage.closeNewWindow();
+                AlertsFrameWindowsPage.checkBrowserWindowsPage();
+            })
         })
     })
 })
