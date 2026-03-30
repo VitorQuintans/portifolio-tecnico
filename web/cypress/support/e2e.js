@@ -13,5 +13,5 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import "allure-cypress/commands";
+import "allure-cypress";
 import './commands'

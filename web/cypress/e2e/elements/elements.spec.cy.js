@@ -12,7 +12,7 @@ describe('Elements Page Tests', () => {
 
     context('Essential scenarios and Acceptance criteria', () => {
         it('should visit the elements page', () => {
-            ElementsPage.accessElementsPage();
+            ElementsPage.visitElementsPage();
             ElementsPage.validateElementsPage();
         })
     })
