@@ -3,8 +3,13 @@
     "cypress": "^15.13.0",
     "dotenv": "^17.3.1"
   },
+  "scripts": {
+    "allure:serve": "allure serve allure-results"
+  },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
+    "allure-commandline": "^2.38.1",
+    "allure-cypress": "^3.6.0",
     "cypress-real-events": "^1.15.0"
   }
 }
