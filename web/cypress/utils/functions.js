@@ -29,6 +29,19 @@ class Functions {
         };
     }
 
+    dragAndDrop($source, $target) {
+        cy.wrap($source)
+            .scrollIntoView()
+            .realHover()
+            .realMouseDown();
+        cy.wait(100);
+        cy.wrap($target)
+            .scrollIntoView()
+            .realHover();
+        cy.wait(500);
+        cy.wrap($target).realMouseUp();
+    }
+
 }
 
 export default new Functions()
