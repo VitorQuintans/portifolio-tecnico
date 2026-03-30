@@ -40,7 +40,6 @@ jobs:
 
       - name: Run Integration and Contract Tests (Jest)
         run: npm run api-test
-        continue-on-error: true
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
@@ -90,3 +89,18 @@ jobs:
           working-directory: ./web
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Generate Web Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: ./web/allure-results
+          allure_report: ./web/allure-report
+
+      - name: Upload Web Allure HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-web-report
+          path: ./web/allure-report
