@@ -19,7 +19,7 @@ describe('WebTables Tests', () => {
         });
     });
 
-    context.only('Web Tables CRUD operations', () => {
+    context('Web Tables CRUD operations', () => {
         it('should create a new record', () => {
             ElementsPage.visitElementsPage();
             WebTablesPage.accessWebTablesPage();
@@ -42,9 +42,8 @@ describe('WebTables Tests', () => {
             WebTablesPage.creatingNewRecord();
             WebTablesPage.validateDataUserOnWebTables();
             WebTablesPage.deleteRecordOnWebTables();
-            WebTablesPage.validateDeleteRecordOnWebTables();
+            WebTablesPage.validateRecordDeletedOnWebTables();
         });
-
     });
 
 
