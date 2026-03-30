@@ -19,6 +19,7 @@ jobs:
   api-tests:
     name: Backend API Tests
     runs-on: ubuntu-latest
+    environment: demoQA
     defaults:
       run:
         working-directory: ./api
@@ -64,6 +65,7 @@ jobs:
   web-tests:
     name: Frontend Web Tests
     runs-on: ubuntu-latest
+    environment: demoQA
     defaults:
       run:
         working-directory: ./web
