@@ -26,7 +26,7 @@ class WebTablesPage {
 
         cy.get(WebTablesElements.addNewRecordBtn).should('be.visible')
             .and('have.text', 'Add')
-            .click();
+            .click({ force: true });
 
         this._fillRegistrationForm(this.currentRecord);
     }
@@ -46,6 +46,17 @@ class WebTablesPage {
         this._fillRegistrationForm(this.currentRecord);
     }
 
+    deleteRecordOnWebTables() {
+        const oldEmail = this.currentRecord.email;
+
+        cy.get(`${WebTablesElements.recordsTable} tbody tr`)
+            .contains('td', oldEmail)
+            .parent()
+            .find('[title="Delete"]')
+            .scrollIntoView()
+            .should('be.visible')
+            .click({ force: true }); // Overcome ads on DemoQA
+    }
 
     // ==========================================
     // Validations
@@ -53,6 +64,14 @@ class WebTablesPage {
 
     validateDataUserOnWebTables() {
         this._validateRecordData(this.currentRecord);
+    }
+
+    validateRecordDeletedOnWebTables() {
+        const email = this.currentRecord.email;
+        // Check if the email just deleted does not exist in the table
+        cy.get(`${WebTablesElements.recordsTable} tbody tr`)
+            .contains('td', email)
+            .should('not.exist');
     }
 
     // ==========================================

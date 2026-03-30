@@ -36,6 +36,15 @@ describe('WebTables Tests', () => {
             WebTablesPage.validateDataUserOnWebTables();
         });
 
+        it('should delete a record', () => {
+            ElementsPage.visitElementsPage();
+            WebTablesPage.accessWebTablesPage();
+            WebTablesPage.creatingNewRecord();
+            WebTablesPage.validateDataUserOnWebTables();
+            WebTablesPage.deleteRecordOnWebTables();
+            WebTablesPage.validateDeleteRecordOnWebTables();
+        });
+
     });
 
 
