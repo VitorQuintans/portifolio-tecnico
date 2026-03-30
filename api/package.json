@@ -8,6 +8,11 @@
     "supertest": "^7.2.2"
   },
   "scripts": {
-    "api-test": "jest --runInBand"
+    "api-test": "jest --runInBand",
+    "allure:serve": "allure serve allure-results"
+  },
+  "devDependencies": {
+    "allure-commandline": "^2.38.1",
+    "jest-allure2-reporter": "^2.3.0"
   }
 }
