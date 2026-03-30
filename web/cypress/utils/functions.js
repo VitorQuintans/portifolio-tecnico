@@ -18,6 +18,17 @@ class Functions {
         return hobbies[Math.floor(Math.random() * hobbies.length)]
     }
 
+    generateRandomUser() {
+        return {
+            firstName: faker.person.firstName(),
+            lastName: faker.person.lastName(),
+            email: faker.internet.email(),
+            age: faker.number.int({ min: 18, max: 65 }),
+            salary: faker.number.int({ min: 10000, max: 100000 }),
+            department: faker.helpers.arrayElement(['IT', 'HR', 'Admin', 'Sales', 'Marketing'])
+        };
+    }
+
 }
 
 export default new Functions()

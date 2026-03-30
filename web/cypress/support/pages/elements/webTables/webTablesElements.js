@@ -8,7 +8,8 @@ const WebTablesElements = {
     salaryInput: '#salary',
     departmentInput: '#department',
     submitBtn: '#submit',
-    recordsTable: 'table.table'
+    recordsTable: 'table.table',
+    editBtn: '#edit-record-3'
 
 }
 

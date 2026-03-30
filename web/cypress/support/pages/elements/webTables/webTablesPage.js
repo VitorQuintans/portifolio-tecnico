@@ -1,7 +1,11 @@
 import WebTablesElements from "./webTablesElements";
-import { faker } from "@faker-js/faker";
+import Functions from "../../../../utils/functions";
 
 class WebTablesPage {
+    // ==========================================
+    // Access and Navigation Functions
+    // ==========================================
+
     accessWebTablesPage() {
         cy.get(WebTablesElements.webTablesBtn).should('be.visible')
             .and('have.text', 'Web Tables')
@@ -13,59 +17,83 @@ class WebTablesPage {
         cy.get('h1').should('have.text', 'Web Tables');
     }
 
-    creatingNewRecord() {
-        this.dataUsedOnWebTables = {
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName(),
-            email: faker.internet.email(),
-            age: faker.number.int({ min: 18, max: 65 }),
-            salary: faker.number.int({ min: 10000, max: 100000 }),
-            department: faker.helpers.arrayElement(['IT', 'HR', 'Admin', 'Sales', 'Marketing'])
-        };
+    // ==========================================
+    // Business Actions (CRUD)
+    // ==========================================
 
+    creatingNewRecord() {
+        this.currentRecord = Functions.generateRandomUser();
 
         cy.get(WebTablesElements.addNewRecordBtn).should('be.visible')
             .and('have.text', 'Add')
             .click();
-        cy.get(WebTablesElements.firstNameInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'First Name')
-            .type(this.dataUsedOnWebTables.firstName);
-        cy.get(WebTablesElements.lastNameInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'Last Name')
-            .type(this.dataUsedOnWebTables.lastName);
-        cy.get(WebTablesElements.emailInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'name@example.com')
-            .type(this.dataUsedOnWebTables.email);
-        cy.get(WebTablesElements.ageInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'Age')
-            .type(this.dataUsedOnWebTables.age);
-        cy.get(WebTablesElements.salaryInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'Salary')
-            .type(this.dataUsedOnWebTables.salary);
-        cy.get(WebTablesElements.departmentInput).should('be.visible')
-            .and('have.attr', 'placeholder', 'Department')
-            .type(this.dataUsedOnWebTables.department);
-        cy.get(WebTablesElements.submitBtn).should('be.visible')
-            .and('have.text', 'Submit')
-            .click();
+
+        this._fillRegistrationForm(this.currentRecord);
     }
 
-    validateUserCreatedOnWebTables() {
-        // Filtra todas as linhas da tabela até encontrar uma que tenha TODAS as colunas correspondentes
-        cy.get(`${WebTablesElements.recordsTable} tbody tr`).filter((index, el) => {
-            const tds = Cypress.$(el).find('td');
-            if (tds.length < 6) return false;
+    updateRecordOnWebTables() {
+        const oldEmail = this.currentRecord.email;
+        this.currentRecord = Functions.generateRandomUser(); // Generate new data mass updated
 
-            return tds.eq(0).text() === this.dataUsedOnWebTables.firstName &&
-                tds.eq(1).text() === this.dataUsedOnWebTables.lastName &&
-                tds.eq(2).text() === this.dataUsedOnWebTables.age.toString() &&
-                tds.eq(3).text() === this.dataUsedOnWebTables.email &&
-                tds.eq(4).text() === this.dataUsedOnWebTables.salary.toString() &&
-                tds.eq(5).text() === this.dataUsedOnWebTables.department;
-        })
-            .should('have.length.at.least', 1)
-            .first()
-            .should('be.visible');
+        cy.get(`${WebTablesElements.recordsTable} tbody tr`)
+            .contains('td', oldEmail)
+            .parent()
+            .find('[title="Edit"]')
+            .scrollIntoView()
+            .should('be.visible')
+            .click({ force: true }); // Overcome ads on DemoQA
+
+        this._fillRegistrationForm(this.currentRecord);
+    }
+
+
+    // ==========================================
+    // Validations
+    // ==========================================
+
+    validateDataUserOnWebTables() {
+        this._validateRecordData(this.currentRecord);
+    }
+
+    // ==========================================
+    // Private Helpers
+    // ==========================================
+
+    _fillRegistrationForm(data) {
+        cy.get(WebTablesElements.firstNameInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'First Name').clear().type(data.firstName);
+
+        cy.get(WebTablesElements.lastNameInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'Last Name').clear().type(data.lastName);
+
+        cy.get(WebTablesElements.emailInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'name@example.com').clear().type(data.email);
+
+        cy.get(WebTablesElements.ageInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'Age').clear().type(String(data.age));
+
+        cy.get(WebTablesElements.salaryInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'Salary').clear().type(String(data.salary));
+
+        cy.get(WebTablesElements.departmentInput).should('be.visible')
+            .and('have.attr', 'placeholder', 'Department').clear().type(data.department);
+
+        cy.get(WebTablesElements.submitBtn).should('be.visible')
+            .and('have.text', 'Submit').click();
+    }
+
+    _validateRecordData(data) {
+        cy.get(`${WebTablesElements.recordsTable} tbody tr`)
+            .contains('td', data.email)
+            .parent()
+            .within(() => {
+                cy.get('td').eq(0).should('include.text', String(data.firstName));
+                cy.get('td').eq(1).should('include.text', String(data.lastName));
+                cy.get('td').eq(2).should('include.text', String(data.age));
+                cy.get('td').eq(3).should('include.text', String(data.email));
+                cy.get('td').eq(4).should('include.text', String(data.salary));
+                cy.get('td').eq(5).should('include.text', String(data.department));
+            });
     }
 }
 

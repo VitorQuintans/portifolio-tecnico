@@ -1,6 +1,11 @@
 import WebTablesPage from "../../../support/pages/elements/webTables/webTablesPage";
 import ElementsPage from "../../../support/pages/elements/elementsPage";
 
+// Prevents Cypress from failing the test if external scripts/website ads return an error.
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false
+})
+
 describe('WebTables Tests', () => {
     beforeEach(() => {
         cy.visit('/');
@@ -19,8 +24,18 @@ describe('WebTables Tests', () => {
             ElementsPage.visitElementsPage();
             WebTablesPage.accessWebTablesPage();
             WebTablesPage.creatingNewRecord();
-            WebTablesPage.validateUserCreatedOnWebTables();
+            WebTablesPage.validateDataUserOnWebTables();
         });
+
+        it('should update a record', () => {
+            ElementsPage.visitElementsPage();
+            WebTablesPage.accessWebTablesPage();
+            WebTablesPage.creatingNewRecord();
+            WebTablesPage.validateDataUserOnWebTables();
+            WebTablesPage.updateRecordOnWebTables();
+            WebTablesPage.validateDataUserOnWebTables();
+        });
+
     });
 
 
