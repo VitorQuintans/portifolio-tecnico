@@ -109,3 +109,7 @@ Para simular o disparo de "Background" limpo via console (Modo Headless):
 ```bash
 npx cypress run
 ```
+
+### Próximos passos:
+
+Implementar cypress-grep e paralelização de testes.
