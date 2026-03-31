@@ -1,0 +1,90 @@
+name: CI/CD Pipeline E2E & API Tests
+
+
+on:
+  push:
+    branches:
+      - main
+      - desafio-qa
+  pull_request:
+    branches:
+      - main
+      - desafio-qa
+  workflow_dispatch:
+
+jobs:
+  # ==========================================
+  # JOB 1: API Tests (Node + Jest)
+  # ==========================================
+  api-tests:
+    name: Backend API Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./api
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './api/package-lock.json'
+
+      - name: Install Dependencies (API)
+        run: npm ci
+
+      - name: Run Integration and Contract Tests (Jest)
+        run: npm run api-test
+        continue-on-error: true
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Generate API Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: ./api/allure-results
+          allure_report: ./api/allure-report
+
+      - name: Upload API Allure HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-api-report
+          path: ./api/allure-report
+
+  # ==========================================
+  # JOB 2: Web Tests (Cypress)
+  # ==========================================
+  web-tests:
+    name: Frontend Web Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './web/package-lock.json'
+
+      - name: Install Dependencies (Web)
+        run: npm ci
+
+      - name: Run E2E Tests (Cypress Headless)
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./web
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
