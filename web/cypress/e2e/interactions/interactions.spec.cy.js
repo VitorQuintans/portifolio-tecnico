@@ -23,16 +23,17 @@ describe('Interactions Page Tests', () => {
             SortablePage.validateSortablePage();
         });
 
-        it('should sort elements using Drag and Drop into Ascending Order', () => {
+        it.skip('should sort elements using Drag and Drop into Ascending Order', () => {
             InteractionsPage.accessInteractionsPage();
             SortablePage.accessSortableSubMenu();
             SortablePage.validateSortablePage();
 
             // How DemoQA loads the list in ascending order, its necessary to scramble it first to test the drag and drop functionality.
             // Drag and drop its not working as expected, the list is not being sorted.
-            //SortablePage.scrambleListToDescending();
-            // SortablePage.sortToAscending();
-            // SortablePage.validateAscendingOrder();
+            // It's not working as expected
+            SortablePage.scrambleListToDescending();
+            SortablePage.sortToAscending();
+            SortablePage.validateAscendingOrder();
         });
     });
 
