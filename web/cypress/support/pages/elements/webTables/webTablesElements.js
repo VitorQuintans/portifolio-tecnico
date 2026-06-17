@@ -9,8 +9,8 @@ const WebTablesElements = {
     departmentInput: '#department',
     submitBtn: '#submit',
     recordsTable: 'table.table',
-    editBtn: '#edit-record-3'
-
+    editBtn: '#edit-record-3',
+    closeBtn: 'button.btn-close'
 }
 
 export default WebTablesElements;

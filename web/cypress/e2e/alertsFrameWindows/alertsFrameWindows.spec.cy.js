@@ -1,11 +1,6 @@
 import AlertsFrameWindowsPage from '../../support/pages/alertsFrameWindows/alertsFrameWindowsPage'
 import BrowserWindowsPage from '../../support/pages/alertsFrameWindows/browserWindows/browserWindowsPage'
 
-// Prevents Cypress from failing the test if external scripts/website ads return an error.
-Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
-})
-
 describe('Alerts Frame Windows Pages Tests', () => {
     beforeEach(() => {
         cy.visit('/')

@@ -1,11 +1,6 @@
 import FormsPage from '../../support/pages/forms/formsPage'
 import PracticeFormPage from '../../support/pages/forms/practiceForm/practiceFormPage'
 
-// Prevents Cypress from failing the test if external scripts/website ads return an error.
-Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
-})
-
 describe('Forms Pages Tests', () => {
     beforeEach(() => {
         cy.visit('/')

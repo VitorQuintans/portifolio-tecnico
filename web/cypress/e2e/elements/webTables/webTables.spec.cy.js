@@ -1,14 +1,10 @@
 import WebTablesPage from "../../../support/pages/elements/webTables/webTablesPage";
 import ElementsPage from "../../../support/pages/elements/elementsPage";
 
-// Prevents Cypress from failing the test if external scripts/website ads return an error.
-Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
-})
-
 describe('WebTables Tests', () => {
     beforeEach(() => {
         cy.visit('/');
+        cy.removeAds();
     });
 
     context('Essential scenarios and Acceptance criteria', () => {
@@ -46,5 +42,20 @@ describe('WebTables Tests', () => {
         });
     });
 
+    context('Negative scenarios and validations', () => {
+        it('should not create a record with empty required fields', () => {
+            ElementsPage.visitElementsPage();
+            WebTablesPage.accessWebTablesPage();
+            WebTablesPage.submitEmptyForm();
+            WebTablesPage.validateFormValidationFeedback();
+        });
+
+        it('should not create a record with invalid email format', () => {
+            ElementsPage.visitElementsPage();
+            WebTablesPage.accessWebTablesPage();
+            WebTablesPage.submitInvalidEmail('invalid-email-format');
+            WebTablesPage.validateEmailInvalidFeedback();
+        });
+    });
 
 });

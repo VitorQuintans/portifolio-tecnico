@@ -110,6 +110,11 @@ Para simular o disparo de "Background" limpo via console (Modo Headless):
 npx cypress run
 ```
 
-### Próximos passos:
+## 🛣️ Próximos Passos (Plano de Evolução do Projeto)
 
-Implementar cypress-grep e paralelização de testes.
+Para elevar ainda mais o nível técnico do projeto, as seguintes evoluções estão mapeadas:
+1. **Migração para TypeScript**: Tipar Page Objects e schemas da API para detecção de erros em tempo de compilação.
+2. **Integração com Cypress-Axe**: Automação de testes de acessibilidade (WCAG) nas principais telas do DemoQA.
+3. **Mocks de API com `cy.intercept()`**: Simular cenários de indisponibilidade de serviços (status 503) e lentidão extrema (timeouts).
+4. **Execução Paralela e Caching no CI/CD**: Otimizar a esteira do GitHub Actions para reduzir o tempo de execução.
+5. **Testes de Regressão Visual**: Integração de ferramentas como Percy ou Applitools para garantir que o layout não quebre entre builds.
