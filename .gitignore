@@ -4,3 +4,9 @@ node_modules/
 # Allure Reports
 allure-results/
 allure-report/
+
+# Cypress
+web/node_modules/
+web/node_modules
+web/cypress/screenshots/
+web/cypress/videos/

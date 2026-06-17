@@ -4,6 +4,8 @@
     "dotenv": "^17.3.1"
   },
   "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "allure:serve": "allure serve allure-results"
   },
   "devDependencies": {

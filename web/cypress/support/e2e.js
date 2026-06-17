@@ -15,3 +15,8 @@
 
 import "allure-cypress";
 import './commands'
+
+// Prevents Cypress from failing the test if external scripts/website ads return an error.
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false;
+});

@@ -1,11 +1,6 @@
 import WidgetsPage from "../../support/pages/widgets/widgetsPage";
 import ProgressBarPage from "../../support/pages/widgets/progressBar/progressBarPage";
 
-// Prevents Cypress from failing the test if external scripts/website ads return an error.
-Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
-})
-
 describe('Widgets Tests', () => {
     beforeEach(() => {
         cy.visit('/');
