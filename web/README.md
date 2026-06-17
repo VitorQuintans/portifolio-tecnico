@@ -102,7 +102,11 @@ npx cypress run --spec "cypress/e2e/forms/forms.spec.cy.js"
 
 ---
 
-## 🎯 Melhorias Futuras / Evolução do Framework
-- [ ] **Integração de Relatórios**: Adicionar relatórios estéticos (como o Mochawesome ou Allure Report) para embasar reuniões de métricas.
-- [ ] **CI/CD Pipeline**: Criação de `cypress.yml` para disparar os testes automaticamente no GitHub Actions em todo Pull Request.
+## 🎯 Melhorias Futuras
+- [ ] **Cenários Negativos**: Validação de formulários com dados inválidos, campos vazios e limites de caracteres.
+- [ ] **Testes de Acessibilidade**: Integrar `cypress-axe` para validação automática de conformidade WCAG.
+- [ ] **Migração para TypeScript**: Tipagem dos Page Objects e Elements para maior robustez.
+- [ ] **cypress-grep e Tags**: Filtros por tag (`@smoke`, `@regression`, `@critical`) para execução seletiva no CI.
+- [ ] **Paralelização**: Configurar execução paralela para reduzir tempo total do pipeline.
+- [ ] **Multi-Browser**: Expandir execução para Firefox e Edge via matrix no GitHub Actions.
 - [ ] **Multi-Environment Setup**: Melhorar a gestão do dotenv injetando comandos para variar facilmente a URL base dependendo do ambiente (DEV, HML, PRD).
